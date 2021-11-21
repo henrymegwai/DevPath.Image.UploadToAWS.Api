@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>640f0855-7197-4c37-b389-8c9e94d278d5</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>    
+  </PropertyGroup>
+
+  <ItemGroup>
+      <PackageReference Include="AWSSDK.S3" Version="3.7.1.24" />
+    <PackageReference Include="AWSSDK.Rekognition" Version="3.7.2.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.14" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlinkCash.Core\BlinkCash.Core.csproj" />
+    <ProjectReference Include="..\BlinkCash.Infrastructure\BlinkCash.Infrastructure.csproj" /> 
+  </ItemGroup>
+
+
+</Project>

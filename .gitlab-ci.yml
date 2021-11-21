@@ -1,0 +1,41 @@
+image: mcr.microsoft.com/dotnet/sdk
+
+stages:
+    - build
+    - test
+    - deploy
+    
+variables:
+  STAGING_DEPLOY_DIR: "imageservice"
+  STAGING_BRANCH: "dev"
+  DEPLOY_COMMAND: "sudo chmod +x start.sh && ./start.sh"
+  REPO: "gitlab.com/${CI_PROJECT_PATH}.git"
+
+build:
+    stage: build
+    script:
+        - "dotnet build"
+    artifacts:
+        paths:
+            - "bin/"
+        expire_in: 1 week
+        
+# test:
+#     stage: test
+#     script: 
+#         - "dotnet test"
+#         - echo "testing"
+
+deploy_staging:
+  stage: deploy
+  image: alpine
+  before_script:
+    - apk add openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIV_KEY_GITLAB" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+  script:
+    - ssh -o StrictHostKeyChecking=no $STAGING_USER@$STAGING_IP "cd /var/www/$STAGING_DEPLOY_DIR && sudo git checkout $STAGING_BRANCH && sudo git add . && sudo git stash && sudo git pull https://$GITLAB_USER:$GITLAB_PASS@$REPO $STAGING_BRANCH --no-edit && $DEPLOY_COMMAND"
+  only:
+    - dev
