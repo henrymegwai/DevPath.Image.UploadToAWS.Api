@@ -1,5 +1,7 @@
 ﻿using Amazon.Runtime;
-using Amazon.S3; 
+using Amazon.S3;
+using Core.Configs;
+using Core.Interfaces.Services;
 using Infrastructure.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection; 

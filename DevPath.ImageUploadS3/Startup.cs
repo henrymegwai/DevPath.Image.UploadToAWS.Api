@@ -1,4 +1,5 @@
 
+using Infrastructure.DIExtensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -61,7 +62,7 @@ namespace BlinkCash.ImageUpload
             app.UseAuthorization();
             app.UseSwagger();
             app.UseSwaggerUI(c => {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "BlinkCash.ImageUpload.Api v1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "DevPath.ImageUpload.Api v1");
                 c.RoutePrefix = string.Empty;
             });
             app.UseEndpoints(endpoints =>
